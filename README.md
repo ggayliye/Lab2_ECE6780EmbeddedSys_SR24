@@ -132,14 +132,19 @@ From the top menu, "Project"->"Build Target".<br>
 Plug in your STM32F072 Discovery Microcontroller to your computer. <br>
 Click "Flash" -> "Download" from the top menu. Test it on your STM32F072 Discovery Microcontroller.
 
-
-
 Thank you for evaluating this project and providing feedback. <br>
 
 Have a wonderful day!
 
 # Consulted Peers:
 N/A
+
+# Caution/Warnings
+
+* Never use any sort of delay within an interrupt handler! Handler functions should perform<br>
+work quickly and then return—the HAL delay functions will deadlock within an interrupt with <br>
+the same or higher priority than the SysTick. 
+
 
 # Examples of Good Software Practice (GSP)
 <pre><ins>DRY</ins> :</pre>
