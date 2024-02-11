@@ -30,10 +30,10 @@ within the project.
 		* Remember that interrupt handler function declarations accept no arguments and have no
 return value!<br>
 3. Toggle both the green and orange LEDs (PC8 & PC9) in the EXTI interrupt handler.<br>
-4. Clear the appropriate flag for input line 0 in the EXTI pending register within the handler.
-		* Otherwise the handler will loop because the interrupt request never acknowledged.
-		* Read the bit description of the pending flags underneath the register map: these bits
-require a different action to clear them.
+4. Clear the appropriate flag for input line 0 in the EXTI pending register within the handler.<br>
+		- Otherwise the handler will loop because the interrupt request never acknowledged.
+		- Read the bit description of the pending flags underneath the register map: these bits
+require a different action to clear them.<br>
 5. Compile and load your application onto the Discovery board.
 
 ### Part 2: Interrupt Nesting
