@@ -5,12 +5,12 @@ Date: 9-February-2024<br>
 Course: ECE 6780 - Embedded System Design, ECE Department, The University of Utah<br>
 GitHub IDs: ggayliye <br>
 Repo: https://github.com/ggayliye/Lab2_ECE6780EmbeddedSys_SR24 <br>
-Date: 16-February-2024 (Time of when submission is/will be ready to be evaluated)<br>
+Date: By 16-February-2024 (Time of when submission is/will be ready to be evaluated)<br>
 Copyright: ECE 6780, Kyle G. Gayliyev - This work may not be copied for use in Academic Coursework.
 
 ## Overview of the Lab 02
 
-LAb 2 is consisted of 2 Parts:<br>
+Lab 2 is consisted of 2 Parts:<br>
 
 * Part 1: Setting up the Interrupt Handler  
 * Part 2: Interrupt Nesting
@@ -72,17 +72,15 @@ their work individually.
 - Created the "Lab2_ECE6780EmbeddedSys_SR24" GitHub repo.
 - Created the "lab02" project using STM32CubeMX Software
 - Worked on the 1st Part and almost completed. 
+- Finished the assignment in the weekend.
 
-<ins>2nd Week Notes:</ins> <br>
-
-- 
 
 ## Testing
 No Unit Test files are created as the nature of the project. Manual testing 
 are performed in each step to ensure code improvements.
 
 # Time Expenditures:
-<pre>Lab01: Predicted Hours: 12h		Actual Hours:	h		 </pre>
+<pre>Lab01: Predicted Hours: 12h		Actual Hours:	12.17h		 </pre>
 
 The actual hours recorded on top reflect the time spent for the assignment including the time spent in labs. It excludes time spent reading and understanding the lab assignment instructions at the beginning of the lab (pre-lab work).
 
