@@ -1,5 +1,4 @@
 # Lab 02: Hardware Interrupts and Program Flow 
-Lab 1 codes for class .
 
 Authors : Kyle G. Gayliyev <br>
 Date: 9-February-2024<br>
@@ -7,7 +6,6 @@ Course: ECE 6780 - Embedded System Design, ECE Department, The University of Uta
 GitHub IDs: ggayliye <br>
 Repo: https://github.com/ggayliye/Lab2_ECE6780EmbeddedSys_SR24 <br>
 Date: 16-February-2024 (Time of when submission is/will be ready to be evaluated)<br>
-Solution: Lab1<br>
 Copyright: ECE 6780, Kyle G. Gayliyev - This work may not be copied for use in Academic Coursework.
 
 <u>**Lab 02:**</u><br>
@@ -17,8 +15,8 @@ Copyright: ECE 6780, Kyle G. Gayliyev - This work may not be copied for use in A
 
 LAb 2 is consisted of 2 Parts:<br>
 
-*Part 1: Setting up the Interrupt Handler  
-*Part 2: Interrupt Nesting
+* Part 1: Setting up the Interrupt Handler  
+* Part 2: Interrupt Nesting
 
 
 
@@ -30,14 +28,14 @@ Instructions:<br>
 1. The file startup_stm32f072xb.s contains the names of interrupt handlers. Find the handler
 name that matches the named interrupt number you found in the previous exercise.<br>
 2. Use the handler name to declare the handler function in either main.c or stm32f0xx_it.h.
-* Although pre-generated interrupt handlers exist in stm32f0xx_it.h, they can be anywhere
+		* Although pre-generated interrupt handlers exist in stm32f0xx_it.h, they can be anywhere
 within the project.
-* Remember that interrupt handler function declarations accept no arguments and have no
+		* Remember that interrupt handler function declarations accept no arguments and have no
 return value!<br>
 3. Toggle both the green and orange LEDs (PC8 & PC9) in the EXTI interrupt handler.<br>
 4. Clear the appropriate flag for input line 0 in the EXTI pending register within the handler.<br>
-* Otherwise the handler will loop because the interrupt request never acknowledged.
-* Read the bit description of the pending flags underneath the register map: these bits
+		* Otherwise the handler will loop because the interrupt request never acknowledged.
+		* Read the bit description of the pending flags underneath the register map: these bits
 require a different action to clear them.<br>
 5. Compile and load your application onto the Discovery board.
 
@@ -73,12 +71,13 @@ their work individually.
 
 <ins> Progress Notes: </ins> <br>
 
-<ins>Feb 9nd, 2024:</ins> <br>
+<ins>1st Week Notes:</ins> <br>
 - Created the "Lab2_ECE6780EmbeddedSys_SR24" GitHub repo.
 - Created the "lab02" project using STM32CubeMX Software
 - Worked on the 1st Part and almost completed. 
 
 <ins>2nd Week Notes:</ins> <br>
+
 - 
 
 ## Testing
