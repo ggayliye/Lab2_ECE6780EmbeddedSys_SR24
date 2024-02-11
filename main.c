@@ -89,32 +89,6 @@ int main(void)
 	
 	GPIOC->PUPDR &= 0x0; //GPIO port pull-up/pull-down register
 	
-//	///////-----------------PIN A-----------------------//////////
-//	//Configure user pushbutton
-//	RCC->AHBENR |= (1<<17); // We know 17th bit from data sheet RM0091 on page 122 that says "Bit 17 IOPBEN: I/O port A clock enable".
-//	
-//	HAL_Delay(2); //Delays 2 milli-sec
-
-//	GPIOA->MODER &= ~(3<<0); //setting A0 to input mode
-//	
-//	GPIOA->OSPEEDR &= ~(3<<0); //GPIO port output speed register to Low speed
-//	GPIOA->PUPDR &= ~(3<<0); //GPIO port pull-up/pull-down register. enable pull down.
-//	GPIOA->PUPDR |= (1<<1);
-//	
-
-	
-//	 //Unmask interrupt generation on EXTI input. line 0
-//    EXTI->EMR |= 1;
-//   //Set input 0 to have a rising-edge trigger.
-//    EXTI->RTSR |= 1;
-//	
-//	 //Use the RCC to enable the peripheral clock to the SYSCFG peripheral.
-//	  RCC->APB2RSTR |=1;
-//	  SYSCFG->EXTICR[0] &=0;// Access the EXTICR0 and set it to PA0
-	
-	
-	
-	
 	
 	
   /* USER CODE END 1 */
@@ -158,6 +132,46 @@ int main(void)
 
 				
 	GPIOC->ODR |= (1<<6); //// Set red LED (PC6) ON  
+	
+	
+
+//	///////-----------------PIN A-----------------------//////////
+	
+	//1. Configure user pushbutton
+	RCC->AHBENR |= (1<<17); //  "Bit 17 IOPBEN: I/O port A clock enable". We know 17th bit from data sheet RM0091 on page 122. 
+	
+	HAL_Delay(2); //Delays 2 milli-sec
+
+	GPIOA->MODER &= ~(3<<0); //setting A0 to input mode
+	
+	GPIOA->OSPEEDR &= ~(3<<0); //GPIO port output speed register to Low speed
+	GPIOA->PUPDR &= ~(3<<0); //GPIO port pull-up/pull-down register. enable pull down.
+	GPIOA->PUPDR |= (1<<1);
+	
+ //2. Pin PA0 connects to the EXTI input line 0 (EXTI0).
+
+
+//3. Enable/unmask interrupt generation on EXTI input line 0 (EXTI0)
+ //Unmask interrupt generation on EXTI input line 0. 
+	EXTI->EMR |= 1;
+	
+	//4. Configure the EXTI input line 0 to have a rising-edge trigger.
+ //Set input 0 to have a rising-edge trigger.
+	EXTI->RTSR |= 1;
+
+
+ // Setting the SYSCFG Pin Multiplexer:
+ //Use the RCC to enable the peripheral clock to the SYSCFG peripheral.
+	RCC->APB2ENR |=1; //APB peripheral clock enable register 2 (RCC_APB2ENR)
+	SYSCFG->EXTICR[0] |=0x0;// Access the EXTICR0 and set it to PA0
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
