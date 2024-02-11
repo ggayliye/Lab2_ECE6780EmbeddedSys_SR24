@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+
 volatile short button_count=0;
 volatile short led_lit_count=0;
 
@@ -111,7 +112,6 @@ void SystemClock_Config(void);
 
 	
 	// Helper function for toggle handler:
-	
 void ToggleFunction(void) {
 
     if (button_count == 1){
@@ -137,10 +137,32 @@ void ToggleFunction(void) {
     }
 }
 
+
+// Helper function for the part 2, delay loop
+
+void Delay(volatile uint32_t count) { //millisec
+    while(count--)
+        __NOP();
+	
+}
+
+
+//void ggg (void const *arg)  {               // Thread function
+//  osStatus status;                               // capture the return status
+//  uint32_t delayTime;                            // delay time in milliseconds
+// 
+//  delayTime = 1000;                              // delay 1 second
+//  :
+//  status = osDelay (delayTime);                  // suspend thread execution
+//    // handle error code
+//  :  
+//}
+
 		int main(void)
 		{
 		/* USER CODE BEGIN 1 */
 		// LAB 2
+
 
 
 		//Initializing all of the LED pins
@@ -245,7 +267,13 @@ void ToggleFunction(void) {
 		//	__NVIC_EnableIRQ(EXTI0_1_IRQn);
 
 		NVIC_EnableIRQ(EXTI0_1_IRQn); //Enable the selected EXTI interrupt by passing its defined name
-		NVIC_SetPriority(EXTI0_1_IRQn,1);// Set the priority for the interrupt to 1 (high-priority)
+		//NVIC_SetPriority(EXTI0_1_IRQn,1);// Set the priority for the interrupt to 1 (high-priority). Part 1.
+		
+		NVIC_SetPriority(EXTI0_1_IRQn,3);// Set the priority for the interrupt to 1 (high-priority). Part 2.
+		
+		
+		NVIC_SetPriority(SysTick_IRQn,2) ;//related to PART 2. SysTick interrupt priority to 2 (medium priority).
+		
 
 		// ----PART 1 :Lab Assignment: Setting up the Interrupt Handler -----//
 		//Writing the EXTI Interrupt Handler:
@@ -257,9 +285,22 @@ void ToggleFunction(void) {
 	
 while (1){
 
-    ToggleFunction();
+		//--Part 2 --Add a delay loop of roughly 1-2 seconds to the EXTI interrupt handler.- ///
+		
+			int i;
+			for (i = 0; i < 1500000; i++) {
+					// delay of one and half second
+				 // Delay(1500);
+				if(i>1499998) {
+				ToggleFunction(); // Here the green and orange LEDs should exchange before the delay loop.
+				}
 
-    HAL_Delay(550);
+			}
+
+   	ToggleFunction();// Here the green and orange LEDs should exchange after the delay loop.
+		
+
+    
 
     /* USER CODE END WHILE */
 
@@ -268,11 +309,12 @@ while (1){
 	
     //Toggle the red LED (PC6) with a moderately-slow delay (400-600ms) in the infinite loop
     // GPIOC->BSRR |= (1<<9);
-
+			HAL_Delay(460);
+			
     if (GPIOC->ODR | (0x40)) // if red is on, red LED (PC6)
     {
         GPIOC->ODR &= 0x3BF;  // make it off
-        HAL_Delay(550); //wait 550 ms so that program can catch the off signal
+        HAL_Delay(460); //wait 550 ms so that program can catch the off signal
     }
 
     GPIOC->ODR |= (0x40); //make it on back 
