@@ -8,9 +8,6 @@ Repo: https://github.com/ggayliye/Lab2_ECE6780EmbeddedSys_SR24 <br>
 Date: 16-February-2024 (Time of when submission is/will be ready to be evaluated)<br>
 Copyright: ECE 6780, Kyle G. Gayliyev - This work may not be copied for use in Academic Coursework.
 
-<u>**Lab 02:**</u><br>
-
-
 ## Overview of the Lab 02
 
 LAb 2 is consisted of 2 Parts:<br>
