@@ -63,17 +63,25 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+// LAB 2
+	
+	
 	//Initializing all of the LED pins
 	
-	RCC->AHBENR |= 0x80000; //19th bit position. We know 19th bit from data sheet RM0091 on page 122 that says "Bit 19 IOPCEN: I/O port C clock enable".
+	RCC->AHBENR |= 0x80000; //For C port (LED ports), "Bit 19 IOPCEN: I/O port C clock enable". 19th bit position. 
+	// We know 19th bit from data sheet RM0091 on page 122.
+	// PC6 is connected to RED LED. 
+	// PC7 is connected to BLUE LED.
+	// PC8 is connected to ORANGE LED.
+	// PC9 is connected to GREEN LED.
 	
 	//HAL_Delay(2); //Delays 2 milli-sec
 	
-	//GPIOC->MODER |= 0x5000; //setting PC6 & 7. PC6 is connected to RED LED. PC7 is connected to BLUE LED.
-	      //Enable ALL LEDs
-  GPIOC->MODER |= (85<<12);
-	//initialize PC8 (orange) and pc9(green)
+	
+	//Enable ALL LEDs for "General purpose output mode, "01" as bits"
+  GPIOC->MODER |= (85<<12); // This means: Move Right to left as 12 digits (the digits are in bits).
+	//then start adjusting from right to left converting 85 to binary and applying OR "|".
+	// 85 in binary will be 01 01 01 01.
 	
 	GPIOC->OTYPER &= 0x0; //no OR (|) . GPIO port output type register
 
@@ -81,28 +89,33 @@ int main(void)
 	
 	GPIOC->PUPDR &= 0x0; //GPIO port pull-up/pull-down register
 	
-	///////-----------------PIN A-----------------------//////////
-	
-	
- 	RCC->AHBENR |= 1 << 17; // We know 17th bit from data sheet RM0091 on page 122 that says "Bit 17 IOPBEN: I/O port A clock enable".
-	
-	HAL_Delay(2); //Delays 2 milli-sec
+//	///////-----------------PIN A-----------------------//////////
+//	//Configure user pushbutton
+//	RCC->AHBENR |= (1<<17); // We know 17th bit from data sheet RM0091 on page 122 that says "Bit 17 IOPBEN: I/O port A clock enable".
+//	
+//	HAL_Delay(2); //Delays 2 milli-sec
 
-	GPIOA->MODER &= ~(3<<0); //setting A0 to input mode
+//	GPIOA->MODER &= ~(3<<0); //setting A0 to input mode
+//	
+//	GPIOA->OSPEEDR &= ~(3<<0); //GPIO port output speed register to Low speed
+//	GPIOA->PUPDR &= ~(3<<0); //GPIO port pull-up/pull-down register. enable pull down.
+//	GPIOA->PUPDR |= (1<<1);
+//	
+
 	
-	GPIOA->OSPEEDR &= ~(3<<0); //GPIO port output speed register to Low speed
-	GPIOA->PUPDR &= ~(3<<0); //GPIO port pull-up/pull-down register. enable pull down.
-	GPIOA->PUPDR |= (1<<1);
+//	 //Unmask interrupt generation on EXTI input. line 0
+//    EXTI->EMR |= 1;
+//   //Set input 0 to have a rising-edge trigger.
+//    EXTI->RTSR |= 1;
+//	
+//	 //Use the RCC to enable the peripheral clock to the SYSCFG peripheral.
+//	  RCC->APB2RSTR |=1;
+//	  SYSCFG->EXTICR[0] &=0;// Access the EXTICR0 and set it to PA0
 	
 	
-	 //Unmask interrupt generation on EXTI input. line 0
-    EXTI->EMR |= 1;
-   //Set input 0 to have a rising-edge trigger.
-    EXTI->RTSR |= 1;
 	
-	 //Use the RCC to enable the peripheral clock to the SYSCFG peripheral.
-	  RCC->APB2RSTR |=1;
-	  SYSCFG->EXTICR[0] &=0;// Access the EXTICR0 and set it to PA0
+	
+	
 	
   /* USER CODE END 1 */
 
@@ -131,48 +144,71 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	
 	//declare the handler function
-GPIOC->ODR |= 0x80;
 
-__NVIC_EnableIRQ(EXTI0_1_IRQn);
-NVIC_SetPriority(EXTI0_1_IRQn,1);
-		
+
+
+
+//__NVIC_EnableIRQ(EXTI0_1_IRQn);
+//NVIC_SetPriority(EXTI0_1_IRQn,1);
+	
+	
+		//Set the green LED (PC9) (GREEN) high/ON
+	GPIOC->ODR |= (1<<9); // 9th bit (10th digit as bit count starts from 0) = 1. shift 9 digits from right to left and make the next digit 1.
+	
+
+				
+	GPIOC->ODR |= (1<<6); //// Set red LED (PC6) ON  
+	
+	
+	
 	
   while (1)
   {
+     HAL_Delay(550);
+		
     /* USER CODE END WHILE */
 
-		  GPIOC->BSRR |= (1<<9);
-      GPIOC->BSRR |= (1<<6); //Turn LED on
-      HAL_Delay(500);
-      GPIOC->BSRR |= (01<<22); //Turn OFF
-      HAL_Delay(500);
+    /* USER CODE END WHILE */
+//Toggle the red LED (PC6) with a moderately-slow delay (400-600ms) in the infinite loop
+		 // GPIOC->BSRR |= (1<<9);
+      
+		
+		
+	if(GPIOC->ODR | (0x40)) // if red is on, red LED (PC6)
+		{
+	  	GPIOC->ODR  &= 0x3BF;  // make it off
+			 HAL_Delay(550); //wait 550 ms so that program can catch the off signal
+		  }
+	
+		GPIOC->ODR |= (0x40); //make it on back 
+		
 		
 		
 		
     /* USER CODE BEGIN 3 */
   }
+	
   /* USER CODE END 3 */
-	
-
-
-	
 }
-	// Enable the selected EXTI interrupt by passing its defined name to the NVIC_EnableIRQ() function.
 
-	void EXTI0_1_IRQHandler(){
-		
-		
-		
-	if(GPIOC->ODR == 0x80)
-		{  
-	GPIOC->ODR = 0x40;
-		}
-		else{
-			GPIOC->ODR = 0x80;
-		}
-	EXTI->PR |=1;
 
-}
+
+//	// Enable the selected EXTI interrupt by passing its defined name to the NVIC_EnableIRQ() function.
+
+//	void EXTI0_1_IRQHandler(){
+//		
+//		
+//		
+//	if(GPIOC->ODR == 0x80)
+//		{  
+//	GPIOC->ODR = 0x40;
+//		}
+//		else{
+//			GPIOC->ODR = 0x80;
+//		}
+//	EXTI->PR |=1;
+
+
 
 
 
