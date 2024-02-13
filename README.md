@@ -77,10 +77,11 @@ their work individually.
 
 ## Testing
 No Unit Test files are created as the nature of the project. Manual testing 
-are performed in each step to ensure code improvements.
+are performed in each step to ensure code improvements. Check "Testing Instructions"
+section below.
 
 # Time Expenditures:
-<pre>Lab01: Predicted Hours: 12h		Actual Hours:	12.17h		 </pre>
+<pre>Lab02: Predicted Hours: 12h		Actual Hours:	12.17h		 </pre>
 
 The actual hours recorded on top reflect the time spent for the assignment including the time spent in labs. It excludes time spent reading and understanding the lab assignment instructions at the beginning of the lab (pre-lab work).
 
